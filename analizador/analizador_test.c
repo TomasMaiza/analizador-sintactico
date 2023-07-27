@@ -21,11 +21,14 @@ void test_analizar_cadena() {
   String cadenaLeida = "dadoexssi";
   Salida salida = analizar_cadena(cadenaLeida, diccionario);
   assert(strcmp(salida.cadenaFinal, "doe si") == 0);
-  assert(strcmp(salida.errores, "daxs") == 0);
+  assert(cola_inicio(salida.errores) == 'd');
+  assert(salida.errores.primero->sig->dato == 'a');
+  assert(salida.errores.primero->sig->sig->dato == 'x');
+  assert(salida.errores.ultimo->dato == 's');
   gtree_destruir(diccionario);
   free(archivos);
   free(salida.cadenaFinal);
-  free(salida.errores);
+  cola_destruir(salida.errores);
 }
 
 void test_analizador() {

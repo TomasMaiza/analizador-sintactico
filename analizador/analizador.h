@@ -2,6 +2,7 @@
 #define __ANALIZADOR_H__
 #include "../gtree/gtree.h"
 #include "../funciones.h"
+#include "../colas/cola.h"
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -9,8 +10,9 @@
 #define ESPACIO_CADENA 255
 
 typedef struct {
-  String cadenaFinal, errores;
-  int indiceCadena, indiceErrores;
+  String cadenaFinal;
+  int indiceCadena;
+  Cola errores;
 } Salida;
 
 typedef struct {
@@ -31,7 +33,7 @@ void leer_entrada(Archivos*, GTree);
 void leer_cadena(Archivos*, GTree);
 
 // toma una cadena de la entrada y el diccionario. Retorna la cadena final
-//luego de analizarla y un array que almacena los errores hallados
+//luego de analizarla y una cola que almacena los errores hallados
 Salida analizar_cadena(String, GTree);
 
 // crea una estructura salida inicializada

@@ -6,6 +6,7 @@
     "analizador.h": "c",
     "string.h": "c",
     "strings.h": "c",
-    "analizador_test.h": "c"
+    "analizador_test.h": "c",
+    "cola_test.h": "c"
   }
 }

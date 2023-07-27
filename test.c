@@ -3,6 +3,8 @@
 #include "gtree/gtree.h"
 #include "gtree/gtree_test.h"
 #include "analizador/analizador_test.h"
+#include "slist/slist_test.h"
+#include "colas/cola_test.h"
 
 void test_programa() {
   Archivos* archivos = malloc(sizeof(Archivos));
@@ -42,6 +44,8 @@ void test_programa() {
 
 int main() {
   test_gtree();
+  test_slist();
+  test_cola();
   test_analizador();
   test_programa();
   return 0;

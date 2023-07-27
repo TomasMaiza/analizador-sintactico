@@ -46,7 +46,6 @@ void leer_cadena(Archivos* archivos, GTree diccionario) {
     Salida salida = analizar_cadena(cadenaLeida, diccionario);
     escribir_salida(archivos->salida, salida);
     free(salida.cadenaFinal);
-    free(salida.errores);
   }
 }
 
@@ -78,8 +77,7 @@ Salida analizar_cadena(String cadenaLeida, GTree diccionario) {
         indiceAceptacion = -1;
       }
       else { // el caracter inicial es un error
-        salida.errores[salida.indiceErrores] = cadenaLeida[indiceInicioPalabra];
-        salida.indiceErrores++;
+        salida.errores = cola_encolar(salida.errores, cadenaLeida[indiceInicioPalabra]);
         indiceInicioPalabra++;
         salida.indiceCadena = indiceCadenaAnterior;
       }
@@ -90,30 +88,29 @@ Salida analizar_cadena(String cadenaLeida, GTree diccionario) {
   }
   if (salida.indiceCadena != 0)
     salida.cadenaFinal[salida.indiceCadena - 1] = '\0';
-  salida.errores[salida.indiceErrores] = '\0';
   salida.cadenaFinal = realloc(salida.cadenaFinal, sizeof(char) * (salida.indiceCadena));
-  salida.errores = realloc(salida.errores, sizeof(char) * (salida.indiceErrores + 1));
   return salida;
 }
 
 Salida inicializar_salida() {
   Salida salida;
   salida.cadenaFinal = malloc(sizeof(char) * ESPACIO_CADENA);
-  salida.errores = malloc(sizeof(char) * ESPACIO_CADENA);
   salida.indiceCadena = 0;
-  salida.indiceErrores = 0;
+  salida.errores = cola_crear();
   return salida;
 }
 
 void escribir_salida(FILE* archivoDeSalida, Salida salida) {
-  int cantidadDeErrores = salida.indiceErrores;
   if (salida.indiceCadena != 0)
     fprintf(archivoDeSalida, "%s ", salida.cadenaFinal);
-  if (cantidadDeErrores > 0) {
+  if (salida.errores.primero != NULL) {
     fprintf(archivoDeSalida, " - Errores: ");
-    fprintf(archivoDeSalida, "%c", salida.errores[0]);
-    for (int i = 1; i < cantidadDeErrores; i++)
-      fprintf(archivoDeSalida, ", %c", salida.errores[i]);
+    fprintf(archivoDeSalida, "%c", cola_inicio(salida.errores));
+    salida.errores = cola_desencolar(salida.errores);
+    while (!cola_es_vacia(salida.errores)) {
+      fprintf(archivoDeSalida, ", %c", cola_inicio(salida.errores));
+      salida.errores = cola_desencolar(salida.errores);
+    }
   }
   else
     fprintf(archivoDeSalida, " - sin errores encontrados");
