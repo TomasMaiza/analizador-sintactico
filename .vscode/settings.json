@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "stdlib.h": "c",
+    "gtree.h": "c",
+    "stdio.h": "c",
+    "analizador.h": "c",
+    "string.h": "c",
+    "strings.h": "c",
+    "analizador_test.h": "c"
+  }
+}
