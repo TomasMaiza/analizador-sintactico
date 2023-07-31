@@ -15,11 +15,6 @@ typedef struct {
   Cola errores;
 } Salida;
 
-typedef struct {
-  String cadenaLeida;
-  int indice;
-} LecturaDePalabra;
-
 // lee el diccionario y lo almacena en un GTree, el cual retorna
 GTree leer_diccionario(Archivos*);
 
