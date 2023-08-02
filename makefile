@@ -25,11 +25,19 @@ clean:
 	rm -f *.o
 
 test: test.c \
-			gtree/gtree_test.c gtree/gtree_test.h gtree.o \
-			analizador/analizador_test.c analizador/analizador_test.h analizador.o \
+			$(TEST_GTREE) \
+			$(TEST_ANALIZADOR) \
 			funciones.o \
-			slist/slist_test.c slist/slist_test.h slist.o \
-			colas/cola_test.c colas/cola_test.h cola.o
-	$(CC) -o $@ $^ $(FLAGS)
+			$(TEST_SLIST) \
+			$(TEST_COLA)
+	$(CC) -o $@ $^ $(TEST_GTREE) $(TEST_ANALIZADOR) $(TEST_SLIST) $(TEST_COLA) $(FLAGS)
+
+TEST_GTREE = gtree/gtree_test.c gtree/gtree_test.h gtree.o
+
+TEST_ANALIZADOR = analizador/analizador_test.c analizador/analizador_test.h analizador.o
+
+TEST_SLIST = slist/slist_test.c slist/slist_test.h slist.o 
+
+TEST_COLA = colas/cola_test.c colas/cola_test.h cola.o
 
 .PHONY = clean
