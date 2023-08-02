@@ -24,7 +24,12 @@ cola.o: colas/cola.c colas/cola.h slist.o
 clean:
 	rm -f *.o
 
-test: test.c gtree/gtree_test.c gtree/gtree_test.h gtree.o analizador/analizador_test.c analizador/analizador_test.h analizador.o funciones.o slist/slist_test.c slist/slist_test.h slist.o colas/cola_test.c colas/cola_test.h cola.o
+test: test.c \
+			gtree/gtree_test.c gtree/gtree_test.h gtree.o \
+			analizador/analizador_test.c analizador/analizador_test.h analizador.o \
+			funciones.o \
+			slist/slist_test.c slist/slist_test.h slist.o \
+			colas/cola_test.c colas/cola_test.h cola.o
 	$(CC) -o $@ $^ $(FLAGS)
 
 .PHONY = clean
